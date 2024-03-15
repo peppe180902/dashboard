@@ -5,8 +5,8 @@ import { lusitana } from '../ui/font';
 import { fetchRevenue, fetchLatestInvoices, fetchCardData } from '../lib/data';
  
 export default async function Page() {
-  const revenue = await fetchRevenue();
-  const latestInvoices = await fetchLatestInvoices();
+/*   const revenue = await fetchRevenue();
+  const latestInvoices = await fetchLatestInvoices(); */
   const {
     numberOfInvoices,
     numberOfCustomers,
@@ -29,10 +29,10 @@ export default async function Page() {
           type="customers"
         /> 
       </div>
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+{/*       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
          <RevenueChart revenue={revenue}  /> 
          <LatestInvoices latestInvoices={latestInvoices} /> 
-      </div>
+      </div> */}
     </main>
   );
 }
