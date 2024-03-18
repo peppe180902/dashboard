@@ -32,6 +32,7 @@ export default function LoginForm() {
                 id="email"
                 type="email"
                 name="email"
+                autoComplete="email"
                 placeholder="Enter your email address"
                 required
               />
@@ -51,6 +52,7 @@ export default function LoginForm() {
                 id="password"
                 type="password"
                 name="password"
+                autoComplete='current-password'
                 placeholder="Enter password"
                 required
                 minLength={6}
