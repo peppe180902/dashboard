@@ -7,6 +7,7 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
+  Prodotto,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -196,6 +197,7 @@ export async function fetchCustomers() {
   }
 }
 
+
 export async function fetchFilteredCustomers(query: string) {
   noStore();
   try {
@@ -237,5 +239,30 @@ export async function getUser(email: string) {
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
+  }
+}
+
+// Aggiungi una nuova funzione per recuperare i prodotti
+export async function fetchProdotti() {
+  try {
+    const result = await sql`SELECT * FROM prodotti WHERE visibile = TRUE`;
+    return result.rows;
+  } catch (error) {
+    console.error('Errore del Database:', error);
+    throw new Error('Errore nel recupero dei prodotti.');
+  }
+}
+
+export async function createProdotto(prodotto: Prodotto) {
+  try {
+    const result = await sql`
+      INSERT INTO prodotti (nome, prezzo, categoria, immagine_url, visibile)
+      VALUES (${prodotto.nome}, ${prodotto.prezzo}, ${prodotto.categoria}, ${prodotto.immagine_url}, ${prodotto.visibile})
+      RETURNING *;
+    `;
+    return result.rows[0];
+  } catch (error) {
+    console.error('Errore del Database:', error);
+    throw new Error('Errore nell\'inserimento del nuovo prodotto.');
   }
 }

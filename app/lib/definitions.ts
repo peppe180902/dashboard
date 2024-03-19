@@ -1,6 +1,9 @@
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
+
+import { Key } from "react";
+
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 export type User = {
   id: string;
@@ -8,6 +11,16 @@ export type User = {
   email: string;
   password: string;
 };
+
+export interface Prodotto {
+  id: Key | null | undefined;
+  nome: string;
+  prezzo: number;
+  categoria: string;
+  immagine_url: string;
+  visibile: boolean;
+}
+
 
 export type Customer = {
   id: string;
