@@ -13,7 +13,7 @@ export type User = {
 };
 
 export interface Prodotto {
-  id: Key | null | undefined;
+  id: string;
   nome: string;
   prezzo: number;
   categoria: string;
@@ -91,6 +91,11 @@ export type FormattedCustomersTable = {
 export type CustomerField = {
   id: string;
   name: string;
+};
+
+export type ProductField = {
+  id: string;
+  nome: string;
 };
 
 export type InvoiceForm = {

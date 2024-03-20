@@ -36,8 +36,8 @@ export default async function ProdottiTable() {
                               src={prodotto.immagine_url}
                               className="rounded-full"
                               alt={`${prodotto.nome}'s profile picture`}
-                              width={28}
-                              height={28}
+                              width={70}
+                              height={70}
                             />
                             <p>{prodotto.nome}</p>
                           </div>
@@ -47,10 +47,10 @@ export default async function ProdottiTable() {
                     </div>
                     <div className="flex w-full items-center justify-between border-b py-5">
                       <div className="flex w-1/2 flex-col">
-                        <p className="text-xs">Pending</p>
+                        <p className="text-l">€ {prodotto.prezzo}</p>
                       </div>
                       <div className="flex w-1/2 flex-col">
-                        <p className="text-xs">Paid</p>
+                        <p className="text-l">Categoria: {prodotto.categoria}</p>
                       </div>
                     </div>
                     <div className="pt-4 text-sm">

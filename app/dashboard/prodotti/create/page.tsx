@@ -1,15 +1,13 @@
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchProdotti } from '@/app/lib/data';
 import { Metadata } from 'next';
-import FormProdotti from '@/app/ui/invoices/create-form';
+import FormProdotti from '@/app/ui/prodotti/create-form';
 
 export const metadata: Metadata = {
-  title: 'Create invoice',
+  title: 'Create prodotti',
 };
  
 export default async function Page() {
-  const prodotti = await fetchProdotti();
- 
+
   return (
     <main>
       <Breadcrumbs
@@ -22,7 +20,7 @@ export default async function Page() {
           },
         ]}
       />
-      <FormProdotti customers={[]}  />
+      <FormProdotti  />
     </main>
   );
 }

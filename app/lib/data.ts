@@ -253,16 +253,3 @@ export async function fetchProdotti() {
   }
 }
 
-export async function createProdotto(prodotto: Prodotto) {
-  try {
-    const result = await sql`
-      INSERT INTO prodotti (nome, prezzo, categoria, immagine_url, visibile)
-      VALUES (${prodotto.nome}, ${prodotto.prezzo}, ${prodotto.categoria}, ${prodotto.immagine_url}, ${prodotto.visibile})
-      RETURNING *;
-    `;
-    return result.rows[0];
-  } catch (error) {
-    console.error('Errore del Database:', error);
-    throw new Error('Errore nell\'inserimento del nuovo prodotto.');
-  }
-}

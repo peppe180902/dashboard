@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { Prodotto } from './definitions';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -21,6 +22,14 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
+const ProdottoSchema = z.object({
+  nome: z.string(),
+  prezzo: z.number().positive(),
+  categoria: z.string(),
+  immagine_url: z.string(),
+  visibile: z.boolean(),
+});
+
 export type State = {
   errors?: {
     customerId?: string[];
@@ -29,6 +38,18 @@ export type State = {
   };
   message?: string | null;
 };
+
+export type ProductState = {
+  errors?: {
+    nome?: string[];
+    prezzo?: string[];
+    categoria?: string[];
+    immagine_url?: string[];
+    visibile?: string[];
+  };
+  message?: string | null;
+};
+
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
@@ -67,6 +88,43 @@ export async function createInvoice(prevState: State, formData: FormData) {
   redirect('/dashboard/invoices');
 
 }
+
+
+export async function createProdotto(prevState: ProductState, formData: FormData) {
+  console.log("FETCH IS STARTINGG NOW")
+  const validatedFields = ProdottoSchema.safeParse({
+    nome: formData.get('nome'),
+    prezzo: formData.get('prezzo'),
+    categoria: formData.get('categoria'),
+    immagine_url: formData.get('immagine_url'),
+    visibile: true,
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Campi mancanti. Impossibile creare il prodotto.',
+    };
+  }
+
+  const { nome, prezzo, categoria, immagine_url, visibile } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO prodotti (nome, prezzo, categoria, immagine_url, visibile)
+      VALUES (${nome}, ${prezzo}, ${categoria}, ${immagine_url}, ${visibile})
+      RETURNING *;
+    `;
+  } catch (error) {
+    return {
+      message: `Database Error: ${error}`
+    }
+  }
+
+  revalidatePath('/dashboard/prodotti');
+  redirect('/dashboard/prodotti');
+}
+
 
 export async function updateInvoice(
   id: string,
