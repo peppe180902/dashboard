@@ -1,9 +1,6 @@
 'use client'
-import { CustomerField, Prodotto } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
-  CheckIcon,
-  ClockIcon,
   CurrencyDollarIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -17,55 +14,6 @@ export default function FormProdotti() {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(createProdotto, initialState);
 
-  /*   const MyDropzone: React.FC = () => {
-      const [uploadStatus, setUploadStatus] = useState<'IDLE' | 'PENDING' | 'SUCCESS' | 'ERROR'>('IDLE');
-    
-      const onDrop = React.useCallback((acceptedFiles: File[]) => {
-        const file = acceptedFiles[0]; // Prendiamo il primo file per semplicità
-      
-        if (!file) return;
-      
-        const formData = new FormData();
-        formData.append('file', file);
-      
-        setUploadStatus('PENDING');
-      
-        fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        })
-          .then(response => response.json())
-          .then(data => {
-            setUploadStatus('SUCCESS');
-            // Aggiungi qui la logica per gestire l'URL dell'immagine
-            console.log('URL dell\'immagine:', data.url);
-          })
-          .catch(error => {
-            console.error('Error uploading the file:', error);
-            setUploadStatus('ERROR');
-          });
-      }, []);
-      
-    
-      const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-    
-      return (
-        <div
-          {...getRootProps()}
-          className={`${
-            isDragActive ? 'border-green-500 bg-green-100' : 'border-gray-300 bg-gray-50'
-          } border-dashed border-2 rounded-md p-6 text-center cursor-pointer transition-colors duration-300 ease-in-out`}
-        >
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <p className="text-green-500">Rilascia il file qui...</p>
-          ) : (
-            <p>Trascina qui il file o clicca per selezionarlo.</p>
-          )}
-        </div>
-      );
-    };
-   */
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -107,14 +55,14 @@ export default function FormProdotti() {
               <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
-          {/*           <div id="customer-error-amount" aria-live="polite" aria-atomic="true">
-            {state.errors?.amount &&
-              state.errors.amount.map((error: string) => (
+          <div id="customer-error-amount" aria-live="polite" aria-atomic="true">
+            {/*             {state.errors?.prezzo &&
+              state.errors.prezzo.map((error: number) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
-              ))}
-          </div> */}
+              ))} */}
+          </div>
         </div>
         {/* Categoria prodotto  */}
         <div className="mb-4">
@@ -135,14 +83,14 @@ export default function FormProdotti() {
               <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
-          {/*           <div id="customer-error-amount" aria-live="polite" aria-atomic="true">
-            {state.errors?.amount &&
-              state.errors.amount.map((error: string) => (
+          <div id="customer-error-amount" aria-live="polite" aria-atomic="true">
+            {/*             {state.errors?.categoria &&
+              state.errors.categoria.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
-              ))}
-          </div> */}
+              ))} */}
+          </div>
         </div>
         <div>
           <label htmlFor="img" className="mb-2 block text-sm font-medium">
@@ -175,3 +123,54 @@ export default function FormProdotti() {
     </form>
   );
 }
+
+
+/*   const MyDropzone: React.FC = () => {
+    const [uploadStatus, setUploadStatus] = useState<'IDLE' | 'PENDING' | 'SUCCESS' | 'ERROR'>('IDLE');
+  
+    const onDrop = React.useCallback((acceptedFiles: File[]) => {
+      const file = acceptedFiles[0]; // Prendiamo il primo file per semplicità
+    
+      if (!file) return;
+    
+      const formData = new FormData();
+      formData.append('file', file);
+    
+      setUploadStatus('PENDING');
+    
+      fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => {
+          setUploadStatus('SUCCESS');
+          // Aggiungi qui la logica per gestire l'URL dell'immagine
+          console.log('URL dell\'immagine:', data.url);
+        })
+        .catch(error => {
+          console.error('Error uploading the file:', error);
+          setUploadStatus('ERROR');
+        });
+    }, []);
+    
+  
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  
+    return (
+      <div
+        {...getRootProps()}
+        className={`${
+          isDragActive ? 'border-green-500 bg-green-100' : 'border-gray-300 bg-gray-50'
+        } border-dashed border-2 rounded-md p-6 text-center cursor-pointer transition-colors duration-300 ease-in-out`}
+      >
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p className="text-green-500">Rilascia il file qui...</p>
+        ) : (
+          <p>Trascina qui il file o clicca per selezionarlo.</p>
+        )}
+      </div>
+    );
+  };
+ */

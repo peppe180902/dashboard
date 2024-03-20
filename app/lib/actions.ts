@@ -56,6 +56,7 @@ const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 
 export async function createInvoice(prevState: State, formData: FormData) {
+  console.log('FETCH IS STARTING NOW...')
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
@@ -94,7 +95,7 @@ export async function createProdotto(prevState: ProductState, formData: FormData
   console.log("FETCH IS STARTINGG NOW")
   const validatedFields = ProdottoSchema.safeParse({
     nome: formData.get('nome'),
-    prezzo: formData.get('prezzo'),
+    prezzo: Number(formData.get('prezzo')),
     categoria: formData.get('categoria'),
     immagine_url: formData.get('immagine_url'),
     visibile: true,
@@ -168,6 +169,18 @@ export async function deleteInvoice(id: string) {
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
+  } catch (error) {
+    return {
+      message: `Database Error: ${error}`
+    }
+  }
+}
+
+export async function deleteProdotto(id: string) {
+  //throw new Error('Failed to Delete Invoice'); prova per visualizzare il file error.tsx per gesitre l'errore, decommentare per fare la prova
+  try {
+    await sql`DELETE FROM prodotti WHERE id = ${id}`;
+    revalidatePath('/dashboard/prodotti');
   } catch (error) {
     return {
       message: `Database Error: ${error}`

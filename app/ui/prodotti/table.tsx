@@ -1,11 +1,8 @@
 import Image from 'next/image';
 import { lusitana } from '../font';
 import Search from '@/app/ui/search';
-import {
-  Prodotto,
-} from '@/app/lib/definitions';
 import { fetchProdotti } from '@/app/lib/data';
-import { CreateProdotto } from './button';
+import { CreateProdotto, DeleteProdotto } from './button';
 
 export default async function ProdottiTable() {
   const prodotti = await fetchProdotti();
@@ -94,6 +91,9 @@ export default async function ProdottiTable() {
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-xl">
                         {prodotto.categoria}
                       </td>
+                      <div className="flex justify-end gap-3bg-white">
+                        <DeleteProdotto id={prodotto.id} />
+                    </div>
                     </tr>
                   ))}
                 </tbody>
